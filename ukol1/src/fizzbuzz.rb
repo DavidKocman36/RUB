@@ -2,7 +2,7 @@
 
 left_num = nil
 left_num == nil ? left_num = 1 : left_num = left_num
-right_num = 20
+right_num = nil
 right_num == nil ? right_num = 100 : right_num = right_num
 
 is_divisible = false
