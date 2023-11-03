@@ -6,7 +6,10 @@ issue2 = Issue.new('mid')
 issue3 = Issue.new('lowbie', priority: :low, status: :done)
 
 tracker = Tracker.new('My tracker')
-tracker.add_issues(issue1, issue2, issue3)
+tracker.add_issues(issue1, issue2, issue3, issue1, issue2, issue3, issue1, issue2, issue3)
+
+
+tracker.add_issues(issue1)
 
 tracker.summary
 #=> Tracker My tracker: high: 1, medium: 1, low: 1
