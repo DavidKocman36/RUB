@@ -40,6 +40,7 @@ class Commander
     end 
 
     def chain(methods, *args)
+        raise "You must pass an array of commands!" unless methods.class == Array
         raise "Pass at least two methods!" if methods.length < 2
         methods.each do |m|
           rasise "The command '#{m}' does not exist!" unless @method_arr.include? m
@@ -47,6 +48,7 @@ class Commander
 
         method = self.method(methods[0])
         result = method
+        # Create a composition of methods
         methods.drop(1).each do |m|
             method = self.method(m)
             result = result >> method
