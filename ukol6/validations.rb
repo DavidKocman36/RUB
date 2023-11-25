@@ -3,14 +3,16 @@ module Validations
         val.extend self
     end
 
-    #def validate(name, validace, message = "Error!")
+    # Overloading of the "validate" method
     def validate(*args)
         if args.size == 0
+            # the method that calls all the validations
             self.class.class_variable_set("@@errors", [])
             aux = self.class.class_variable_get("@@valids")
 
             aux.each do |valid|
                 next unless self.instance_variable_defined?("@#{valid[0]}")
+                # Whether the validace is symbol -> call method or call a proc if the validace is proc
                 if valid[1].class == Symbol
                     result = self.send(valid[1], self.instance_variable_get("@#{valid[0]}"))
                     raise "The proc does not return a boolean value!" if result.class != TrueClass && result.class != FalseClass
@@ -28,6 +30,7 @@ module Validations
             return false
             
         elsif args.size == 2 || args.size == 3
+            # the method for creating validations
             name, validace, message = args
             message ||= "ERROR!"
 
@@ -36,7 +39,8 @@ module Validations
 
             self.class_variable_set("@@valids", []) unless self.class_variable_defined?("@@valids")
             self.class_variable_set("@@errors", []) unless self.class_variable_defined?("@@errors")
-
+            
+            # create an array containing the holy trinities -> name of the variable, method and error message
             aux = Array.new << [name, validace, message]
             if self.class_variable_get("@@valids").empty? == false
                 aux  = self.class_variable_get("@@valids") << aux[0]
@@ -48,7 +52,8 @@ module Validations
     end
 
     self.define_method "errors" do
-        self.class.class_variable_get("@@errors") if self.class.class_variable_defined?("@@errors")
+        # get the error array
+        self.class.class_variable_get("@@errors")
     end
 
     self.define_method "valid?" do
