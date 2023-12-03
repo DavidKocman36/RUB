@@ -8,7 +8,8 @@ class Main < Thor
         true
     end
 
-    desc 'convert', 'Converts a supplied currency into a specified amount of another currency'
+    desc 'convert {AMOUNT} {FROM_CURRENCY} {TO_CURRENCY}', 'Converts a supplied currency into a specified amount of another currency'
+
     def convert(amount, currency1, currency2)
         Converter.convert(amount, currency1, currency2)
     end
