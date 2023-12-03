@@ -30,3 +30,11 @@ The available services are:
 
 - ./main.rb help
     - Print usage.
+
+Example:
+```
+$ ./main.rb convert 26 IDR CZK
+Retrieving data...
+Converting...
+26 IDR = 0.038 CZK as of 01.12.2023.
+```
