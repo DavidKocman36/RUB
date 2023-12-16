@@ -8,7 +8,7 @@ Funkce:
 
 - registrace - bude k dispozici admin, který přidává blogy, dále se můžou návštěvníci regisrovat
 
-- CRUD nad blogy (články)
+- CRUD nad blogy (články) - sránka pro úpravu/vytvoření/mazání blogů
 
 - přidávání komentářů k článkům
 
