@@ -18,3 +18,4 @@ Funkce:
 
 Celý blog bude hlavně pojat jako osobní prezentace či portfolio (tedy about me atd.).
 Pro front end použiji bootstrap.
+Auth bude naprogramován pomocí Devise.
