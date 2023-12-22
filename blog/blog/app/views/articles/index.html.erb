@@ -7,9 +7,16 @@
 <ul>
   <% @articles.each do |article| %>
     <li>
-      <a href="/articles/<%= article.id %>">
-        <%= article.title %>
-      </a>
+      <a href="/articles/<%= article.id %>"><%= article.title %></a>
+      <p><%=article.prenex%><p>
+      <%if  user_signed_in? && current_user.admin? %>
+        <%= button_to "Edit", edit_article_path(article.id), method: :get %>
+        <%= button_to "Delete", article_path(article.id), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  }, method: :delete %>
+      <%end%>
+      
     </li>
   <% end %>
 </ul>

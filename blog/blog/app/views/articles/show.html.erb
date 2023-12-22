@@ -1,3 +1,33 @@
 <h1><%= @article.title %></h1>
 
 <p><%= @article.body %></p>
+
+<h2>Comments: <%= @article.comments.length() %></h2>
+
+<% @article.comments.each do |comment| %>
+  <p><strong><%= comment.commenter %></strong></p>
+  <p><%= comment.text %></p>
+
+  <%if user_signed_in? and (comment.user_id == current_user.id or current_user.admin?) %>
+    <%= button_to "Delete", [comment.article, comment], data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                }, method: :delete %>
+  <% end %>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%unless  user_signed_in?%>
+    <p> You need to be signed in to comment!</p>
+<%else%>
+    <p><%= current_user.username %><p>
+    <%= form_with model: [ @article, @article.comments.build ] do |form| %>
+    <p>
+        <%= form.label :text %><br>
+        <%= form.text_area :text %>
+    </p>
+    <p>
+        <%= form.submit %>
+    </p>
+    <% end %>
+<%end%>
