@@ -3,33 +3,46 @@
   <head>
     <title>Blog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "layout", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "turbo", type: "module" %>
   </head>
 
   <body>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <nav>
-        <ul>
-          <li><%= button_to "Home", root_path, method: :get %></li>
-          <li><%= button_to "Blog", articles_path, method: :get %></li>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+        <ul class="navbar-nav">
+          <li class="nav-item"><%= link_to "Home", root_path, method: :get, :class => "nav-link"%></li>
+          <li class="nav-item"><%= link_to "Blog", articles_path, method: :get, :class => "nav-link" %></li>
           <% unless user_signed_in? %>
-            <li><%= button_to "Log in", new_user_session_path, method: :get%></li>
-            <li><%= button_to "New? Sign up", new_user_registration_path, method: :get %></li>
+            <li class="nav-item"><%= link_to "Log in", new_user_session_path, method: :get, :class => "nav-link"%></li>
+            <li class="nav-item"><%= link_to "New? Sign up", new_user_registration_path, method: :get, :class => "nav-link" %></li>
           <% else %>
-            <% if current_user.admin? %>
-              <p> ADMIN </p>
-            <%end%>
-            <li><%= button_to "Log out", destroy_user_session_path, method: :delete %></li>
-            <li><%= button_to "Profile", edit_user_registration_path, method: :get %></li>
+            <li class="nav-item"><%= button_to "Log out", destroy_user_session_path, method: :delete, :class => "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Profile", edit_user_registration_path, method: :get, :class => "nav-link" %></li>
           <% end %>
-          
         </ul>
       </nav>
-      <%= yield %>
+    </header>
+    <main>
+      <div class="mx-auto align-items-center justify-content-center">
+        <%if !notice.nil?%>
+          <p class="notice text-center font-weight-bold pt-2"><%= notice %></p>
+        <%end%>
+        <%if !alert.nil?%>
+          <p class="alert text-center font-weight-bold pt-2"><%= alert %></p>
+        <%end%>
+        <%= yield %>
+      </div>
+    </main>
+    <footer class="py-3 my-4 border-top">
+      <p class="text-center text-muted">David Kocman, 2023</p>
+    </footer>
   </body>
 </html>

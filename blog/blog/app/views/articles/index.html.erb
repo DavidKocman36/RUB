@@ -1,22 +1,30 @@
-<h1>Articles</h1>
+<h1 class="text-center">Articles</h1>
 
 <%if  user_signed_in? && current_user.admin? %>
-    <%= button_to "New article", new_article_path, method: :get%>
+  <div class="col-md-12 text-center">
+    <%= button_to "New article", new_article_path, method: :get, class: "btn btn-primary"%>
+  </div>
 <%end%>
 
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-      <a href="/articles/<%= article.id %>"><%= article.title %></a>
-      <p><%=article.prenex%><p>
-      <%if  user_signed_in? && current_user.admin? %>
-        <%= button_to "Edit", edit_article_path(article.id), method: :get %>
-        <%= button_to "Delete", article_path(article.id), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  }, method: :delete %>
-      <%end%>
-      
-    </li>
-  <% end %>
-</ul>
+<div class="mx-auto">
+  <%if @articles.empty?%>
+  <p class="text-center">No articles here!</p>
+  <%end%>
+  <ul class="list-group list-group-flush">
+    <% @articles.each do |article| %>
+      <li class="list-group-item d-flex flex-row">
+        <div>
+          <a href="/articles/<%= article.id %>" class="link-dark link-offset-2 link-underline link-underline-opacity-0 display-6"><%= article.title %></a>
+          <p><%=article.prenex%><p>
+        </div>
+        <%if  user_signed_in? && current_user.admin? %>
+          <div class="d-flex flex-row-reverse align-items-center">
+            <%= button_to "Edit", edit_article_path(article.id), method: :get, class: "m-2 btn btn-primary"%>
+            <%= button_to "Delete", article_path(article.id), form: { data: {turbo_confirm: "Are you sure?"} }, method: :delete, class: "m-2 btn btn-primary" %>
+          </div>
+        <%end%>
+        
+      </li>
+    <% end %>
+  </ul>
+</div>
