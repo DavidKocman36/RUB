@@ -12,6 +12,8 @@ Technical functionality:
 - Commenting on posts.
 - Editing your profile.
 
+And other QOL functions.
+
 ## Setup
 
 To seed the data, use
@@ -29,3 +31,14 @@ After that, open localhost in your browser (most propably on port 3000).
 ## Seeded users
 
 There are four users available to use - one admin and three normal ones. After seeding it is able to log in as one. All have the same password: `neconeco`. The username of the admin user is `Admin`, usernames of other users are `user1`, `user2` and `user3`. The passwords and usernames can be also seen in `db/seeds.rb` file.
+
+## Tests
+
+Also tests for models and controllers are available. Model tests test CRUD operations, coltroller tests test the correct responses.
+
+To run the tests:
+
+```
+bin/rails test tests/model
+bin/rails test tests/controller 
+```
