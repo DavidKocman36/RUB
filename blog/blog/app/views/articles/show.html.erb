@@ -1,0 +1,39 @@
+<div class="mx-auto align-items-center justify-content-center">
+    <h1 class="text-center"><%= @article.title %></h1>
+
+    <p><%= @article.body %></p>
+
+    <h3 class="text-center border-top pt-1 mt-5">Comments: <%= @article.comments.length() %></h3>
+
+    <% @article.comments.each do |comment| %>
+        <div class="d-flex flex-row justify-content-between">
+            <div class="d-flex flex-column">
+                <p><strong><%= comment.commenter %></strong></p>
+                <p><%= comment.text %></p>
+            </div>
+
+            <%if user_signed_in? and (comment.user_id == current_user.id or current_user.admin?) %>
+                <%= button_to "Delete", [comment.article, comment], data: {
+                            turbo_method: :delete,
+                            turbo_confirm: "Are you sure?"
+                            }, method: :delete, class: "btn btn-primary" %>
+            <% end %>
+        </div>
+    <% end %>
+
+    <h3 class="border-top mt-5 pt-1">Add a comment:</h3>
+    <%unless  user_signed_in?%>
+        <p> You need to be signed in to comment!</p>
+    <%else%>
+        <p><%= current_user.username %><p>
+        <%= form_with model: [ @article, @article.comments.build ] do |form| %>
+        <p>
+            <%= form.label :text %><br>
+            <%= form.text_area :text, class:"form-control" %>
+        </p>
+        <p class="text-center">
+            <%= form.submit class: "btn btn-primary" %>
+        </p>
+        <% end %>
+    <%end%>
+</div>
