@@ -1,2 +1,4 @@
 # Ruby
-Repozitář s úkoly z volitelného předmětu NI-RUB.
+My Ruby assignments. 
+
+The blog folder contains Ruby on Rails blog website.
