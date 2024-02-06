@@ -1,0 +1,32 @@
+
+<%= form_with model: article do |form| %>
+<div class="mx-auto align-items-center justify-content-center py-3">
+    <div class="mx-auto align-items-center justify-content-center">
+        <%= form.label :title, class: "py-2" %><br>
+        <%= form.text_field :title, class: "form-control" %>
+        <% article.errors.full_messages_for(:title).each do |message| %>
+            <div><%= message %></div>
+        <% end %>
+    </div>
+
+    <div class="mx-auto align-items-center justify-content-center">
+        <%= form.label :prenex, class: "py-2" %><br>
+        <%= form.text_field :prenex, class: "form-control" %>
+        <% article.errors.full_messages_for(:prenex).each do |message| %>
+            <div><%= message %></div>
+        <% end %>
+    </div>
+
+    <div class="mx-auto align-items-center justify-content-center">
+        <%= form.label :body, class: "py-2" %><br>
+        <%= form.text_area :body, class: "form-control" %>
+        <% article.errors.full_messages_for(:body).each do |message| %>
+            <div><%= message %></div>
+        <% end %>
+    </div>
+
+    <div class="mx-auto align-items-center justify-content-center py-3">
+        <%= form.submit class: " btn btn-primary" %>
+    </div>
+<div>
+<% end %>
